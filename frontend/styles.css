@@ -9,7 +9,30 @@ body{
 .navbar-brand{
     margin-left: 3em;
 }
-
+.pads{
+  padding-left: 400px;
+  padding-right: 400px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: #1A191A;
+}
+.pad6{
+  padding-left: 80px;
+  padding-right: 80px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: #1A191A;
+}
+.mar{
+  margin: auto;
+}
+.tcolor{
+  color: #FF6333;
+}
+.head{
+  color: #FF6333;
+  text-align: center;
+}
 .nav-link{
     text-decoration: none;
     color: white;
