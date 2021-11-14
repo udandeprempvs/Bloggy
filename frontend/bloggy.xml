@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="./index.xsl"?>
+<blogContent>
+
+  <blog>
+    <title >Everyday Italian</title>
+    <author>Giada De Laurentiis</author>
+    <body>This word has two main meanings. The first has to do with being pleased and satisfied (feeling content)</body>
+    <topic>
+        <content>Java</content>
+        <content>Javascript</content>
+    </topic>
+  </blog>
+
+  <blog >
+    <title >Harry Potter</title>
+    <author>J K. Rowling</author>
+    <body>making someone else feel happy and at peace with things (contenting them). </body>
+    <topic>
+        <content>CSS</content>
+        <content>HTML</content>
+    </topic>
+  </blog>
+
+  <blog >
+    <title >XQuery Kick Start</title>
+    <author>James McGovern</author>
+    <body>The other meaning has to do with subject matter: the content of a history class might be American history</body>
+    <topic>
+        <content>Python</content>
+        <content>Ruby</content>
+    </topic>
+  </blog>
+
+  <blog >
+    <title >Learning XML</title>
+    <author>Erik T. Ray</author>
+    <body>The content of a math class might be geometry. As long as there's a topic or subject, there's content.</body>
+    <topic>
+        <content>Tensorflow</content>
+        <content>Pytorch</content>
+    </topic>
+  </blog>
+
+</blogContent>

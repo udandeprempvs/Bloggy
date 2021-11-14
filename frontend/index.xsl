@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<?xml version="1.0"?>
+
+<xsl:stylesheet version="1.0"
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+<xsl:template match="/">
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -141,34 +147,18 @@
       </div>
       <h5 class="mt-4">#Trending Blogs</h5>
       <div class="row">
+      <xsl:for-each select="blogContent/blog">
         <div class="col-md-3 col-12">
           <div class="shadow-custom">
-            <h5>Title</h5>
-            <p>Description in 10 words of the blog</p>
-            <p>#dfre #dferfe</p>
+            <h1><xsl:value-of select="title"/></h1>
+            <h5><xsl:value-of select="author"/></h5>
+            <p><xsl:value-of select="body"/></p>
+            <xsl:for-each select="topic">
+              <p><xsl:value-of select="content"/></p>
+            </xsl:for-each>
           </div>
         </div>
-        <div class="col-md-3 col-12">
-          <div class="shadow-custom">
-            <h5>Title</h5>
-            <p>Description in 10 words of the blog</p>
-            <p>#dfre #dferfe</p>
-          </div>
-        </div>
-        <div class="col-md-3 col-12">
-          <div class="shadow-custom">
-            <h5>Title</h5>
-            <p>Description in 10 words of the blog</p>
-            <p>#dfre #dferfe</p>
-          </div>
-        </div>
-        <div class="col-md-3 col-12">
-          <div class="shadow-custom">
-            <h5>Title</h5>
-            <p>Description in 10 words of the blog</p>
-            <p>#dfre #dferfe</p>
-          </div>
-        </div>
+      </xsl:for-each>
       </div>
     </div>
     <footer class="mt-4">
@@ -214,11 +204,11 @@
             <form action="#">
               <div class="email">
                 <div class="text">Email *</div>
-                <input type="email" required />
+                <input type="email" />
               </div>
               <div class="msg">
                 <div class="text">Message *</div>
-                <textarea rows="2" cols="25" required></textarea>
+                <textarea rows="2" cols="25"></textarea>
               </div>
               <div class="btn">
                 <button type="submit">Send</button>
@@ -236,3 +226,6 @@
     crossorigin="anonymous"
   ></script>
 </html>
+</xsl:template>
+
+</xsl:stylesheet>
