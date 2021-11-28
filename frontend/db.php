@@ -40,7 +40,7 @@
             name VARCHAR (25) NOT NULL,
             body VARCHAR (1125) NOT NULL,
             tags VARCHAR (125) NOT NULL,
-            user_email VARCHAR (20)
+            user_email VARCHAR (120)
         );
            ";
         

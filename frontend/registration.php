@@ -73,7 +73,7 @@
           <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
             <form  method="post">
               <!-- SVG -->
-              <a href="./index.html">
+              <a href="./index.php">
                 <svg
                   width="191"
                   height="58"

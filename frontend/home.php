@@ -25,7 +25,7 @@
   ?>
     <nav class="back navbar navbar-expand-lg">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index.html"
+          <a class="navbar-brand" href="indexphp"
             ><svg
               width="191"
               height="58"
@@ -67,13 +67,13 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="home.html">Home</a>
+                <a class="nav-link" aria-current="page" href="home.php">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="myblogs.html">My Blogs</a>
+                <a class="nav-link" href="myblogs.php">My Blogs</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="starred.html">Starred Blogs</a>
+                <a class="nav-link" href="starred.php">Starred Blogs</a>
               </li>
             </ul>
             <form class="d-flex">
@@ -104,9 +104,9 @@
   
 echo $msg;
   ?>
-      <h2 class="head">Feed</h2>
+      <h2 class="head">Feed <a class="tcolor btn btn-dark" href="newblog.php">Add Blog</a></h2>
 
-      <a class="btn" href="newblog.php">Add Blog</a>
+      
     
         <div class="card pads" style="width: 100%;">
             <img src="../pic/feed.png" class="card-img-top" alt="feed">

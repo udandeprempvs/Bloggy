@@ -1,3 +1,8 @@
+<?php
+session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,9 +25,22 @@
     <title>Document</title>
 </head>
 <body>
+<?php
+    require('db.php');           //imports the db.php file
+    
+    $email = $_SESSION['email'];
+    $query    = "SELECT * FROM `blogs` WHERE user_email='$email'";
+    $result = mysqli_query($con, $query) or die(mysql_error());
+    if (!$result) {
+      echo "<div>
+          <h3>Something went wrong.</h3><br/>
+          </div>";
+      }
+    ?>
+  
     <nav class="back navbar navbar-expand-lg">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index.html"
+          <a class="navbar-brand" href="index.php"
             ><svg
               width="191"
               height="58"
@@ -64,13 +82,13 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="home.html">Home</a>
+                  <a class="nav-link" aria-current="page" href="home.php">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="myblogs.html">My Blogs</a>
+                  <a class="nav-link" href="myblogs.php">My Blogs</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="starred.html">Starred Blogs</a>
+                  <a class="nav-link" href="starred.php">Starred Blogs</a>
                 </li>
               </ul>
             <form class="d-flex">
@@ -86,8 +104,8 @@
             </form>
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="btn btn-outline-danger mt-2" href="./login.html"
-                  >Login / Sign Up</a
+                <a class="btn btn-outline-danger mt-2" href="./logout.php"
+                  >Logout</a
                 >
               </li>
             </ul>
@@ -98,80 +116,46 @@
       <h2 class="head">My Blogs</h2>
 
       <div class="mar row">
-        <div class="col-6">
-            <div class="card pad6">
-                <img src="../pic/feed.png" class="card-img-top" alt="feed">
-                <div class="card-body">
-                    <h6>Nov 23 2020</h6>
-                    <h5 class="card-title tcolor">This way is wrong about UI Design.</h5>
-                    <p class="card-text">A quick guide to assisting users in the challenging steps from learning 
-                        about your podcast on the web.  A quick guide to assisting users in the challenging steps from learning about your podcast on the web. </p>
-                    <a href="#" class="tcolor btn btn-dark">Read More</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="card pad6">
-                <img src="../pic/feed.png" class="card-img-top" alt="feed">
-                <div class="card-body">
-                    <h6>Nov 23 2020</h6>
-                    <h5 class="card-title tcolor">This way is wrong about UI Design.</h5>
-                    <p class="card-text">A quick guide to assisting users in the challenging steps from learning 
-                        about your podcast on the web.  A quick guide to assisting users in the challenging steps from learning about your podcast on the web. </p>
-                    <a href="#" class="tcolor btn btn-dark">Read More</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="card pad6">
-                <img src="../pic/feed.png" class="card-img-top" alt="feed">
-                <div class="card-body">
-                    <h6>Nov 23 2020</h6>
-                    <h5 class="card-title tcolor">This way is wrong about UI Design.</h5>
-                    <p class="card-text">A quick guide to assisting users in the challenging steps from learning 
-                        about your podcast on the web.  A quick guide to assisting users in the challenging steps from learning about your podcast on the web. </p>
-                    <a href="#" class="tcolor btn btn-dark">Read More</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="card pad6">
-                <img src="../pic/feed.png" class="card-img-top" alt="feed">
-                <div class="card-body">
-                    <h6>Nov 23 2020</h6>
-                    <h5 class="card-title tcolor">This way is wrong about UI Design.</h5>
-                    <p class="card-text">A quick guide to assisting users in the challenging steps from learning 
-                        about your podcast on the web.  A quick guide to assisting users in the challenging steps from learning about your podcast on the web. </p>
-                    <a href="#" class="tcolor btn btn-dark">Read More</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="card pad6">
-                <img src="../pic/feed.png" class="card-img-top" alt="feed">
-                <div class="card-body">
-                    <h6>Nov 23 2020</h6>
-                    <h5 class="card-title tcolor">This way is wrong about UI Design.</h5>
-                    <p class="card-text">A quick guide to assisting users in the challenging steps from learning 
-                        about your podcast on the web.  A quick guide to assisting users in the challenging steps from learning about your podcast on the web. </p>
-                    <a href="#" class="tcolor btn btn-dark">Read More</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="card pad6">
-                <img src="../pic/feed.png" class="card-img-top" alt="feed">
-                <div class="card-body">
-                    <h6>Nov 23 2020</h6>
-                    <h5 class="card-title tcolor">This way is wrong about UI Design.</h5>
-                    <p class="card-text">A quick guide to assisting users in the challenging steps from learning 
-                        about your podcast on the web.  A quick guide to assisting users in the challenging steps from learning about your podcast on the web. </p>
-                    <a href="#" class="tcolor btn btn-dark">Read More</a>
-                </div>
-            </div>
-        </div>
+        
+      <?php 
+
+      if (mysqli_num_rows($result) > 0) {
+        // output data of each row
+        while($row = mysqli_fetch_assoc($result)) {
+          ?>
+          <div class="col-6">
+          <div class="card pad6">
+              <img src="../pic/feed.png" class="card-img-top" alt="feed">
+              <div class="card-body">
+                  <h6><?php echo $row['tags'] ?></h6>
+                  <h5 class="card-title tcolor"><?php echo $row['name'] ?></h5>
+                  <p class="card-text"><?php echo $row['body'] ?>
+              </div>
+          </div>
       </div>
-    
+    <?php  } 
+      } else {
+        echo "0 results";
+      }
+      
+      ?>
+      <!-- <div class="col-6">
+            <div class="card pad6">
+                <img src="../pic/feed.png" class="card-img-top" alt="feed">
+                <div class="card-body">
+                    <h6>Nov 23 2020</h6>
+                    <h5 class="card-title tcolor"><?php echo $row['title'] ?></h5>
+                    <p class="card-text">A quick guide to assisting users in the challenging steps from learning 
+                        about your podcast on the web.  A quick guide to assisting users in the challenging steps from learning about your podcast on the web. </p>
+                    <a href="#" class="tcolor btn btn-dark">Read More</a>
+                </div>
+            </div>
+        </div> -->
+        <?php
+        //  } 
+        ?> 
+      </div>
+      
        
 </body>
 <!-- JavaScript Bundle with Popper -->
