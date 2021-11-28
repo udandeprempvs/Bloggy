@@ -20,6 +20,9 @@
     <title>Document</title>
 </head>
 <body>
+  <?php
+  session_start();
+  ?>
     <nav class="back navbar navbar-expand-lg">
         <div class="container-fluid">
           <a class="navbar-brand" href="index.html"
@@ -84,18 +87,26 @@
                 Search
               </button>
             </form>
+            
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="btn btn-outline-danger mt-2" href="./login.html"
-                  >Login / Sign Up</a
+                <a class="btn btn-outline-danger mt-2" href="./logout.php"
+                  >Logout</a
                 >
               </li>
             </ul>
           </div>
         </div>
       </nav>
+      <?php
 
+  $msg = "<h2>Welcome ".  $_SESSION['name'] ."</h2>";
+  
+echo $msg;
+  ?>
       <h2 class="head">Feed</h2>
+
+      <a class="btn" href="newblog.php">Add Blog</a>
     
         <div class="card pads" style="width: 100%;">
             <img src="../pic/feed.png" class="card-img-top" alt="feed">

@@ -86,7 +86,7 @@
           </form>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="btn btn-outline-danger mt-2" href="./login.html"
+              <a class="btn btn-outline-danger mt-2" href="./login.php"
                 >Login / Sign Up</a
               >
             </li>

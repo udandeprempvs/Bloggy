@@ -8,9 +8,9 @@
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
     }
     //creating the db by itself
-    $sql = "CREATE DATABASE IF NOT EXISTS contact_book";
+    $sql = "CREATE DATABASE IF NOT EXISTS bloggy";
     if(mysqli_query($con, $sql)){
-        $con = mysqli_connect("localhost", "root", "", "contact_book");
+        $con = mysqli_connect("localhost", "root", "", "bloggy");
         //sql schema
         $sql = "
         CREATE TABLE IF NOT EXISTS users (
@@ -32,15 +32,14 @@
 
 
     if(mysqli_query($con, $sql)){
-        $con = mysqli_connect("localhost", "root", "", "contact_book");
+        $con = mysqli_connect("localhost", "root", "", "bloggy");
 
         $sql = "
-        CREATE TABLE IF NOT EXISTS contacts(
-            contact_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-            contact_name VARCHAR (25) NOT NULL,
-            contact_number VARCHAR (20) NOT NULL,
-            contact_email VARCHAR (20) NOT NULL,
-            contact_address VARCHAR (50),
+        CREATE TABLE IF NOT EXISTS blogs(
+            blog_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR (25) NOT NULL,
+            body VARCHAR (1125) NOT NULL,
+            tags VARCHAR (125) NOT NULL,
             user_email VARCHAR (20)
         );
            ";
