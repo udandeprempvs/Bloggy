@@ -2,13 +2,12 @@
 session_start();
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- CSS only -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -20,27 +19,49 @@ session_start();
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
-
     <link rel="stylesheet" href="styles.css" />
     <title>Document</title>
-</head>
-<body>
-<?php
+  </head>
+  <body>
+  <?php
     require('db.php');           //imports the db.php file
-    
-    $email = $_SESSION['email'];
-    $query    = "SELECT * FROM `blogs` WHERE user_email='$email'";
+    // When form submitted, check and create user session.
+    $id = $_GET['ID'];
+    echo $id;
+    $query    = "SELECT * FROM `blogs` WHERE blog_id='$id'";
     $result = mysqli_query($con, $query) or die(mysql_error());
-    if (!$result) {
-      echo "<div>
-          <h3>Something went wrong.</h3><br/>
-          </div>";
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_assoc($result)){
+            $tags = $row['tags'];
+            $title = $row['name'];
+            $text = $row['body'];
+        }
+    }
+    if (isset($_POST['add'])) {
+        $title = stripslashes($_REQUEST['title']);    // removes backslashes
+        //do with name 
+        $title = mysqli_real_escape_string($con, $title);
+        $tags = stripslashes($_REQUEST['tags']);
+        $tags = mysqli_real_escape_string($con, $tags);
+        // Check user is exist in the database
+        $body = stripslashes($_REQUEST['myTextarea']);
+        $body = mysqli_real_escape_string($con, $body);
+        $email = $_SESSION['email'];
+        $query    = "UPDATE `blogs` SET name='$title', body='$text' , tags = '$tags' WHERE blog_id='$id'";
+        $result = mysqli_query($con, $query) or die(mysql_error());
+        if ($result) {
+          header("Location:home.php");
+      } else {
+          echo "<div>
+                <h3>Something went wrong.</h3><br/>
+                </div>";
       }
-    ?>
-  
-    <nav class="back navbar navbar-expand-lg">
+    } 
+    else { ?>
+  <section>
+      <nav class="back navbar navbar-expand-lg">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index.php"
+          <a class="navbar-brand" href="#"
             ><svg
               width="191"
               height="58"
@@ -81,16 +102,16 @@ session_start();
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="home.php">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="myblogs.php">My Blogs</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="starred.php">Starred Blogs</a>
-                </li>
-              </ul>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">My Blogs</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Starred Blogs</a>
+              </li>
+            </ul>
             <form class="d-flex">
               <input
                 class="form-control mt-2 me-2"
@@ -112,57 +133,70 @@ session_start();
           </div>
         </div>
       </nav>
-
-      <h2 class="head">My Blogs</h2>
-
-      <div class="mar row">
-        
-      <?php 
-
-      if (mysqli_num_rows($result) > 0) {
-        // output data of each row
-        while($row = mysqli_fetch_assoc($result)) {
-          ?>
-          <div class="col-6">
-          <div class="card pad6">
-              <img src="../pic/feed.png" class="card-img-top" alt="feed">
-              <div class="card-body">
-                  <h6><?php echo $row['tags'] ?></h6>
-                  <h5 class="card-title tcolor"><?php echo $row['name'] ?></h5>
-                  <p class="card-text"><?php echo $row['body'] ?>
-                  <a href="editblog.php?ID=<?php echo $row['blog_id']?>" >Edit</a>
-              </div>
+    
+      <div class="container">
+        <form  method="post">
+        <div class="form-outline mb-4">
+          <label
+            for="colFormLabelSm"
+            class="col-sm-2 col-form-label text-white"
+            >Title</label
+          >
+          <div class="col-sm-12">
+            <input
+            name="title"
+              type="text"
+              class="form-control border"
+              placeholder="Enter Title"
+              value = "<?php echo htmlentities($title); ?>"
+            />
           </div>
-      </div>
-    <?php  } 
-      } else {
-        echo "NO BLOGS YET";
-      }
+        </div>
+        <div class="form-outline mb-4">
+          <label
+            for="colFormLabelSm"
+            class="col-sm-2 col-form-label text-white"
+            >Tags</label
+          >
+          <div class="col-sm-12">
+            <input
+            name="tags"
+              type="text"
+              class="form-control border"
+              placeholder="Enter Tags"
+              value = "<?php echo htmlentities($tags); ?>"
+            />
+          </div>
       
-      ?>
-      <!-- <div class="col-6">
-            <div class="card pad6">
-                <img src="../pic/feed.png" class="card-img-top" alt="feed">
-                <div class="card-body">
-                    <h6>Nov 23 2020</h6>
-                    <h5 class="card-title tcolor"><?php echo $row['title'] ?></h5>
-                    <p class="card-text">A quick guide to assisting users in the challenging steps from learning 
-                        about your podcast on the web.  A quick guide to assisting users in the challenging steps from learning about your podcast on the web. </p>
-                    <a href="#" class="tcolor btn btn-dark">Read More</a>
-                </div>
-            </div>
-        </div> -->
-        <?php
-        //  } 
-        ?> 
+          <label
+          for="colFormLabelSm"
+          class="col-sm-2 col-form-label text-white"
+          >Body</label>
+          <textarea name="myTextarea" id="myTextarea"></textarea>
       </div>
-      
-       
-</body>
-<!-- JavaScript Bundle with Popper -->
-<script
-src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-crossorigin="anonymous"
-></script>
+      <input
+        type="submit"
+        name="add"
+        class="btn btn-primary btn-lg"
+        style="padding-left: 2.5rem; padding-right: 2.5rem"
+      />
+      </form>
+    </section>
+    <?php } 
+    
+    ?>
+  </body>
+  <!-- JavaScript Bundle with Popper -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.10.0/tinymce.min.js"></script>
+  <script>
+    tinymce.init({
+      selector: "#myTextarea",
+      height: "300px",
+    });
+  </script>
 </html>
