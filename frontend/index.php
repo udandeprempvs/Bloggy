@@ -1,10 +1,4 @@
-<?xml version="1.0"?>
-
-<xsl:stylesheet version="1.0"
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-
-<xsl:template match="/">
-
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -92,7 +86,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
           </form>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="btn btn-outline-danger mt-2" href="./login.html"
+              <a class="btn btn-outline-danger mt-2" href="./login.php"
                 >Login / Sign Up</a
               >
             </li>
@@ -147,18 +141,34 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
       </div>
       <h5 class="mt-4">#Trending Blogs</h5>
       <div class="row">
-      <xsl:for-each select="blogContent/blog">
         <div class="col-md-3 col-12">
           <div class="shadow-custom">
-            <h1><xsl:value-of select="title"/></h1>
-            <h5><xsl:value-of select="author"/></h5>
-            <p><xsl:value-of select="body"/></p>
-            <xsl:for-each select="topic">
-              <p><xsl:value-of select="content"/></p>
-            </xsl:for-each>
+            <h5>Title</h5>
+            <p>Description in 10 words of the blog</p>
+            <p>#dfre #dferfe</p>
           </div>
         </div>
-      </xsl:for-each>
+        <div class="col-md-3 col-12">
+          <div class="shadow-custom">
+            <h5>Title</h5>
+            <p>Description in 10 words of the blog</p>
+            <p>#dfre #dferfe</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-12">
+          <div class="shadow-custom">
+            <h5>Title</h5>
+            <p>Description in 10 words of the blog</p>
+            <p>#dfre #dferfe</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-12">
+          <div class="shadow-custom">
+            <h5>Title</h5>
+            <p>Description in 10 words of the blog</p>
+            <p>#dfre #dferfe</p>
+          </div>
+        </div>
       </div>
     </div>
     <footer class="mt-4">
@@ -204,11 +214,11 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
             <form action="#">
               <div class="email">
                 <div class="text">Email *</div>
-                <input type="email" />
+                <input type="email" required />
               </div>
               <div class="msg">
                 <div class="text">Message *</div>
-                <textarea rows="2" cols="25"></textarea>
+                <textarea rows="2" cols="25" required></textarea>
               </div>
               <div class="btn">
                 <button type="submit">Send</button>
@@ -226,6 +236,3 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     crossorigin="anonymous"
   ></script>
 </html>
-</xsl:template>
-
-</xsl:stylesheet>

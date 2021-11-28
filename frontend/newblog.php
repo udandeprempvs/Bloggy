@@ -19,6 +19,38 @@
     <title>Document</title>
   </head>
   <body>
+  <?php
+    require('db.php');           //imports the db.php file
+    // When form submitted, check and create user session.
+    if (isset($_POST['email'])) {
+        $mail = stripslashes($_REQUEST['email']);    // removes backslashes
+        //do with name 
+        $mail = mysqli_real_escape_string($con, $mail);
+        $password = stripslashes($_REQUEST['password']);
+        $password = mysqli_real_escape_string($con, $password);
+        // Check user is exist in the database
+        $query    = "SELECT * FROM `users` WHERE email='$mail'
+                     AND pass='" . md5($password) . "'";
+        $result = mysqli_query($con, $query) or die(mysql_error());
+        $rows = mysqli_num_rows($result);
+        if ($rows == 1) {
+            $_SESSION['email'] = $mail;
+            echo $_SESSION['email'];
+            $row = mysqli_fetch_assoc($result);
+            $_SESSION['name'] = $row['fname'];
+            // echo $_SESSION['name'];
+            // Redirect to user dashboard page
+            echo "Successfully logged in";
+            header("Location: home.php");
+        } 
+        else { //displays error message 
+            echo "<div class='form'>
+                  <h3>Incorrect Username/password.</h3><br/>
+                  <p class='link'>Click here to <a href='login.php'>Login</a> again.</p>
+                  </div>";
+             }
+    } else {
+?>
     <nav class="back navbar navbar-expand-lg">
       <div class="container-fluid">
         <a class="navbar-brand" href="#"
@@ -85,17 +117,56 @@
           </form>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="btn btn-outline-danger mt-2" href="./login.html"
-                >Login / Sign Up</a
+              <a class="btn btn-outline-danger mt-2" href="./logout.php"
+                >Logout</a
               >
             </li>
           </ul>
         </div>
       </div>
     </nav>
+    
     <div class="container">
-      <textarea name="myTextarea" id="myTextarea"></textarea>
+    <div class="form-outline mb-4">
+      <label
+        for="colFormLabelSm"
+        class="col-sm-2 col-form-label text-white"
+        >Title</label
+      >
+      <div class="col-sm-12">
+        <input
+        name="title"
+          type="text"
+          id="txtTitle"
+          class="form-control border"
+          placeholder="Enter Title"
+        />
+      </div>
     </div>
+    <div class="form-outline mb-4">
+      <label
+        for="colFormLabelSm"
+        class="col-sm-2 col-form-label text-white"
+        >Tags</label
+      >
+      <div class="col-sm-12">
+        <input
+        name="tags"
+          type="text"
+          id="txtTags"
+          class="form-control border"
+          placeholder="Enter Tags"
+        />
+      </div>
+    </div>  
+    <label
+        for="colFormLabelSm"
+        class="col-sm-2 col-form-label text-white"
+        >Body</label
+      >
+    <textarea name="myTextarea" id="myTextarea"></textarea>
+    </div>
+    <?php}?>
   </body>
   <!-- JavaScript Bundle with Popper -->
   <script
